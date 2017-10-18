@@ -10,5 +10,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Environments">
+      <EntityTypeMapping TypeName="EzUtilityModel.Environment">
+        <MappingFragment StoreEntitySet="Environments">
+          <ScalarProperty Name="environment1" ColumnName="environment" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

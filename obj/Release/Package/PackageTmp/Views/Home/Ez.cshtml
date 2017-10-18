@@ -19,8 +19,51 @@
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
 <script>
+    var baseUrl = window.location.origin+"/";
 
+    $(document).ready(function () {
+        loadServiceLine();
+        loadEnvironments();
 
+        $('.changeTrigger').on('change', function () {
+            serviceLine = $('#selectServiceLine').val();
+            environment = $('#selectEnvironment').val();
+
+            if (serviceLine && environment) {
+                console.log(serviceLine, environment);
+            }
+             
+        })
+    })
+
+    function loadServiceLine() {
+        url = baseUrl + "home/getServiceLine";
+        $.post(url, function (data) {
+            data = $.parseJSON(data);
+            html = '<option selected disabled>Select Serviceline</option>';
+            $(data).each(function (i, v) {
+                html += '<option value="'+v.id+'">' + v.serviceLine_name + '</option>';
+            })
+            $('#selectServiceLine').html(html); 
+        })
+    }
+
+    function loadEnvironments() {
+        url = baseUrl + "home/getEnvironments";
+        $.post(url, function (data) {
+            data = $.parseJSON(data); 
+            html = '';
+            html = '<option selected disabled>Select Environment</option>';
+            $(data).each(function (i, v) {
+                html += '<option value="' + v.id + '">' + v.environment1 + '</option>';
+            })
+            $('#selectEnvironment').html(html);
+        })
+    }
+
+    
+
+    
 
 </script>
 <input type="hidden" id="xml_filename" value="" />
@@ -30,24 +73,27 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="padding: 0;">
             <label class="">Select Service Line</label>
-            <select class="form-control" id="selectServiceLine">
+            <select class="form-control changeTrigger" id="selectServiceLine" >
                 <option>None</option>
             </select>
         </div>
-        <div class="col-lg-4">
+
+        <div class="col-lg-4" style="padding: 0;">
+            <label class="">Select Environment</label>
+            <select class="form-control  changeTrigger" id="selectEnvironment">
+                <option>None</option>
+            </select>
+        </div>
+
+        <div class="col-lg-4" style="padding: 0; display:none">
             <label class="">Select Application</label>
             <select class="form-control" id="selectApplication">
                 <option>None</option>
             </select>
         </div>
-        <div class="col-lg-4">
-            <label class="">Select Environment</label>
-            <select class="form-control" id="selectEnvironment">
-                <option>None</option>
-            </select>
-        </div>
+       
     </div>
     <br /><hr />
     <div class="col-lg-6" style="display:none" id="xmlHolder">  </div>
