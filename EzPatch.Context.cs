@@ -26,5 +26,6 @@ namespace EzUtility
         }
     
         public virtual DbSet<ServiceLine> ServiceLines { get; set; }
+        public virtual DbSet<Environment> Environments { get; set; }
     }
 }

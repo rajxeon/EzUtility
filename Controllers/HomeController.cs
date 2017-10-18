@@ -30,13 +30,22 @@ namespace EzUtility.Controllers
         }
 
         
-
+        [HttpPost]
         public string getServiceLine() {            
             var context = new EzUtilityEntities(); 
             var query =(from c in context.ServiceLines select c);
             var json = JsonConvert.SerializeObject(query);
-            return json+ User.Identity.GetUserId();
-            
+            return json+ User.Identity.GetUserId();            
+        }
+
+        [HttpPost]
+        public string getEnvironments()
+        {
+            var context = new EzUtilityEntities();
+            var query = (from c in context.Environments select c);
+            var json = JsonConvert.SerializeObject(query);
+            return json + User.Identity.GetUserId();
+
         }
 
     }

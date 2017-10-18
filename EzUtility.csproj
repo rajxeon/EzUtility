@@ -198,20 +198,23 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="EzPatch.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EzPatch.Context.tt</DependentUpon>
+    <Compile Include="Environment.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
     </Compile>
-    <Compile Include="EzPatch.cs">
+    <Compile Include="Ezpatch.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EzPatch.tt</DependentUpon>
+      <DependentUpon>Ezpatch.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EzPatch.Designer.cs">
+    <Compile Include="Ezpatch.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EzPatch.edmx</DependentUpon>
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ezpatch.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ezpatch.edmx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,22 +224,22 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLine.cs">
-      <DependentUpon>EzPatch.tt</DependentUpon>
+      <DependentUpon>Ezpatch.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="EzPatch.Context.tt">
+    <Content Include="Ezpatch.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EzPatch.edmx</DependentUpon>
-      <LastGenOutput>EzPatch.Context.cs</LastGenOutput>
+      <DependentUpon>Ezpatch.edmx</DependentUpon>
+      <LastGenOutput>Ezpatch.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EzPatch.tt">
+    <Content Include="Ezpatch.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EzPatch.edmx</DependentUpon>
-      <LastGenOutput>EzPatch.cs</LastGenOutput>
+      <DependentUpon>Ezpatch.edmx</DependentUpon>
+      <LastGenOutput>Ezpatch.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -249,12 +252,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="EzPatch.edmx">
+    <EntityDeploy Include="Ezpatch.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EzPatch.Designer.cs</LastGenOutput>
+      <LastGenOutput>Ezpatch.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="EzPatch.edmx.diagram">
-      <DependentUpon>EzPatch.edmx</DependentUpon>
+    <Content Include="Ezpatch.edmx.diagram">
+      <DependentUpon>Ezpatch.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Local Machine.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

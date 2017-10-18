@@ -10,5 +10,13 @@
   </EntityType>
   <EntityContainer Name="EzUtilityEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ServiceLines" EntityType="Self.ServiceLine" />
+    <EntitySet Name="Environments" EntityType="EzUtilityModel.Environment" />
   </EntityContainer>
+  <EntityType Name="Environment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="environment1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>
