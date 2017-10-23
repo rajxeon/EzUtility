@@ -36,6 +36,23 @@ namespace EzUtility.Models
                 ServiceCatalogId = app.ServiceCatalogId
             };
         }
-        
+
+        public ServersModel GetServers(ezServer ser)
+        {
+            return new ServersModel()
+            {
+                id = ser.id,
+                MachineName = ser.MachineName,
+                MachineDomain=ser.MachineDomain,
+                Enviroment = ser.ezEnvironment.environment,
+                Application=ser.ezApplication.ShortName,
+                ServiceLine=ser.ezServiceLine.serviceLine_name,
+                Type=ser.ezType.type,
+                Cluster=ser.ezCluster.clusterName
+
+            };
+        }
+
+       
     }
 }

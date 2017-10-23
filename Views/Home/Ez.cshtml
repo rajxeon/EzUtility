@@ -11,6 +11,13 @@
 
     .progress-bar {
     }
+    .form-control {
+        
+    }
+    #serverTable {
+        margin-top: 15px;
+    background: #fff;
+    }
 </style>
 <br /><br /><br /><br />
 <h3>@ViewData["Message"]</h3>
@@ -25,31 +32,81 @@
         loadServiceLine();
         loadEnvironments();
 
-        $('.changeTrigger').on('change', function () {
+        $('.changeTrigger').on('change', function (event) {
+             
             serviceLine = $('#selectServiceLine').val();
             environment = $('#selectEnvironment').val();
+            application = $('#selectApplication').val();
 
-            if (serviceLine && environment) {
-                getApplciations(serviceLine);
-                //console.log(serviceLine, environment);
+            if (serviceLine && environment && application) {
+                if (event.currentTarget.id == 'selectApplication')
+                getServers();
+                
             }
+
+            if (serviceLine) {
+                if (event.currentTarget.id != 'selectApplication')
+                getApplciations(serviceLine);
+                 
+            }
+
+            
              
         })
     })
+
+    function getServers() {
+         
+        $('#serverTableHolder').html('<img style="display: block; margin: 60px auto; height: 40px;" src="http://charterhouseyc.com/wp-content/plugins/yacht-cya/images/loader.gif" />');
+        $('#serverTableHolder').fadeIn(100);
+        url = baseUrl + "home/getServers";
+         
+        applicationId   = $('#selectApplication').val();
+        envId           = $('#selectEnvironment').val();
+
+        $.post(url, { envId: envId, applicationId: applicationId }, function (data) {
+            
+            data = $.parseJSON(data);
+
+            html = '<br><table id="serverTable" class="table table-striped"><thead style="color:#fff; background:#58beea;"><tr>  <th>#</th> <th>Application</th>  <th>Cluster</th>  <th>Enviroment</th>  <th>MachineDomain</th>  <th>MachineName</th>  <th>ServiceLine</th>  <th>Type</th>   <th>Operations</th>  </tr></thead><tbody>';
+            $(data).each(function (i, v) {
+                html += '<tr>';
+
+                html += '<td>' + (i+1) + '</td>';
+                html += '<td>' + v.Application + '</td>';
+                html += '<td>' + v.Cluster + '</td>';
+                html += '<td>' + v.Enviroment + '</td>';
+                html += '<td>' + v.MachineDomain + '</td>';
+                html += '<td>' + v.MachineName + '</td>';
+                html += '<td>' + v.ServiceLine + '</td>';
+                html += '<td>' + v.Type + '</td>';
+                html += '<td> <a class="btn btn-success btn-xs"\
+                data-toggle="modal" data-target="#myModal"\
+                title="Show installed KBs"><i class="glyphicon glyphicon-cog"></i></a></td>';
+
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            $('#serverTableHolder').html(html);
+            $('#serverTable').DataTable();
+            
+        })
+        
+    }
 
     function getApplciations(serviceLine) {
         url = baseUrl + "home/getApplications";
         $.post(url, { serviceLineId: serviceLine}, function (data) {
 
             data = $.parseJSON(data);
-            console.log(data);
+           // console.log(data);
             
             html = '<option selected disabled>Select Application</option>';
             $(data).each(function (i, v) {
                 html += '<option value="' + v.id + '">' + v.Title + '</option>';
             })
             $('#selectApplication').html(html);
-            $('#selectApplication').parent().show(100);
+            $('#selectApplication').parent().fadeIn(100);
             
         })
     }
@@ -57,7 +114,7 @@
     function loadServiceLine() {
         url = baseUrl + "home/getServiceLine";
         $.post(url, function (data) {
-            console.log(data);
+            //console.log(data);
             data = $.parseJSON(data);
             html = '<option selected disabled>Select Serviceline</option>';
             $(data).each(function (i, v) {
@@ -70,7 +127,7 @@
     function loadEnvironments() {
         url = baseUrl + "home/getEnvironments";
         $.post(url, function (data) {
-            console.log(data);
+            //console.log(data);
             data = $.parseJSON(data);
             
             html = '';
@@ -108,29 +165,32 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="col-lg-4" style="padding: 0;">
+        <div class="col-lg-4" style="padding-left: 0;">
             <label class="">Select Service Line</label>
             <select class="form-control changeTrigger" id="selectServiceLine" >
                 <option>None</option>
             </select>
         </div>
 
-        <div class="col-lg-4" style="padding: 0;">
+        <div class="col-lg-4" >
             <label class="">Select Environment</label>
             <select class="form-control  changeTrigger" id="selectEnvironment">
                 <option>None</option>
             </select>
         </div>
 
-        <div class="col-lg-4" style="padding: 0; display:none">
+        <div class="col-lg-4" style=" display:none;padding-right: 0;">
             <label class="">Select Application</label>
-            <select class="form-control" id="selectApplication">
+            <select class="form-control changeTrigger" id="selectApplication">
                 <option>None</option>
             </select>
         </div>
        
     </div>
     <br /><hr />
+    <div class="col-lg-12" id="serverTableHolder" style="display:none">
+        
+    </div>
     <div class="col-lg-6" style="display:none" id="xmlHolder">  </div>
     <div class="col-lg-6">
 
@@ -153,3 +213,23 @@
 
     </div>
     <br /><br /><br /><br /><br /><br /><br /><br />
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">KB manager</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>

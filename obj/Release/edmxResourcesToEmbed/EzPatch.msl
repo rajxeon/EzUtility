@@ -4,6 +4,7 @@
     <EntitySetMapping Name="ezApplications">
       <EntityTypeMapping TypeName="EzUtilityModel.ezApplication">
         <MappingFragment StoreEntitySet="ezApplications">
+          <ScalarProperty Name="ServiceLineId" ColumnName="ServiceLineId" />
           <ScalarProperty Name="ServiceCatalogId" ColumnName="ServiceCatalogId" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
           <ScalarProperty Name="Title" ColumnName="Title" />

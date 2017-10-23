@@ -60,16 +60,14 @@ namespace EzUtility.Controllers
         }
 
         [HttpPost]
-        public string getServers(int svcLineID, int envId)
+        public string getServers(int envId,int applicationId)
         {
-            var context = new EzUtilityEntities();
-            var query = (from c in context.ezServers
-                         where (c.ServiceLineID==svcLineID) 
-                         &&
-                         (c.EnvironmentID==envId)
-                         select c);
+
+            var query = dbContext.ezServers.Where(c => ( c.EnvironmentID == envId && c.ApplicationID==applicationId))               .ToList()
+               .Select(a => _modelFactory.GetServers(a));
             var json = JsonConvert.SerializeObject(query);
             return json;
+            
 
         }
 

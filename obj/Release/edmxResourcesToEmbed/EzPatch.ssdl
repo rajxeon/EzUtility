@@ -8,6 +8,7 @@
     <Property Name="Title" Type="varchar" MaxLength="50" />
     <Property Name="ShortName" Type="varchar" MaxLength="50" />
     <Property Name="ServiceCatalogId" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceLineId" Type="int" />
   </EntityType>
   <EntityType Name="ezClusters">
     <Key>
@@ -51,6 +52,18 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="type" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_ezApplications_ezServiceLines">
+    <End Role="ezServiceLines" Type="Self.ezServiceLines" Multiplicity="0..1" />
+    <End Role="ezApplications" Type="Self.ezApplications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezServiceLines">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezApplications">
+        <PropertyRef Name="ServiceLineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ezServers_ezApplications">
     <End Role="ezApplications" Type="Self.ezApplications" Multiplicity="1" />
     <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
@@ -118,6 +131,10 @@
     <EntitySet Name="ezServers" EntityType="Self.ezServers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ezServiceLines" EntityType="Self.ezServiceLines" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ezTypes" EntityType="Self.ezTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ezApplications_ezServiceLines" Association="Self.FK_ezApplications_ezServiceLines">
+      <End Role="ezServiceLines" EntitySet="ezServiceLines" />
+      <End Role="ezApplications" EntitySet="ezApplications" />
+    </AssociationSet>
     <AssociationSet Name="FK_ezServers_ezApplications" Association="Self.FK_ezServers_ezApplications">
       <End Role="ezApplications" EntitySet="ezApplications" />
       <End Role="ezServers" EntitySet="ezServers" />
