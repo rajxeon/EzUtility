@@ -30,11 +30,29 @@
             environment = $('#selectEnvironment').val();
 
             if (serviceLine && environment) {
-                console.log(serviceLine, environment);
+                getApplciations(serviceLine);
+                //console.log(serviceLine, environment);
             }
              
         })
     })
+
+    function getApplciations(serviceLine) {
+        url = baseUrl + "home/getApplications";
+        $.post(url, { serviceLineId: serviceLine}, function (data) {
+
+            data = $.parseJSON(data);
+            console.log(data);
+            
+            html = '<option selected disabled>Select Application</option>';
+            $(data).each(function (i, v) {
+                html += '<option value="' + v.id + '">' + v.Title + '</option>';
+            })
+            $('#selectApplication').html(html);
+            $('#selectApplication').parent().show(100);
+            
+        })
+    }
 
     function loadServiceLine() {
         url = baseUrl + "home/getServiceLine";

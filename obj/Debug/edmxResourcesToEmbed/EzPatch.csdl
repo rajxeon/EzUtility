@@ -27,6 +27,10 @@
       <End Role="ezCluster" EntitySet="ezClusters" />
       <End Role="ezServer" EntitySet="ezServers" />
     </AssociationSet>
+    <AssociationSet Name="FK_ezApplications_ezServiceLines" Association="EzUtilityModel.FK_ezApplications_ezServiceLines">
+      <End Role="ezServiceLine" EntitySet="ezServiceLines" />
+      <End Role="ezApplication" EntitySet="ezApplications" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ezApplication">
     <Key>
@@ -37,6 +41,8 @@
     <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ServiceCatalogId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="ezServers" Relationship="EzUtilityModel.FK_ezServers_ezApplications" FromRole="ezApplication" ToRole="ezServer" />
+    <Property Name="ServiceLineId" Type="Int32" />
+    <NavigationProperty Name="ezServiceLine" Relationship="EzUtilityModel.FK_ezApplications_ezServiceLines" FromRole="ezApplication" ToRole="ezServiceLine" />
   </EntityType>
   <EntityType Name="ezCluster">
     <Key>
@@ -80,6 +86,7 @@
     <Property Name="serviceLine_name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="ezServers" Relationship="EzUtilityModel.FK_ezServers_ezServiceLines" FromRole="ezServiceLine" ToRole="ezServer" />
+    <NavigationProperty Name="ezApplications" Relationship="EzUtilityModel.FK_ezApplications_ezServiceLines" FromRole="ezServiceLine" ToRole="ezApplication" />
   </EntityType>
   <EntityType Name="ezType">
     <Key>
@@ -146,6 +153,18 @@
       </Principal>
       <Dependent Role="ezServer">
         <PropertyRef Name="ClusterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ezApplications_ezServiceLines">
+    <End Type="EzUtilityModel.ezServiceLine" Role="ezServiceLine" Multiplicity="0..1" />
+    <End Type="EzUtilityModel.ezApplication" Role="ezApplication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezServiceLine">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezApplication">
+        <PropertyRef Name="ServiceLineId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

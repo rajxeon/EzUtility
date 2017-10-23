@@ -26,6 +26,16 @@ namespace EzUtility.Models
             };
         }
 
-          
+        public ApplicationsModel GetApplications(ezApplication app)
+        {
+            return new ApplicationsModel()
+            {
+                id = app.id,
+                Title = app.Title,
+                ShortName = app.ShortName,
+                ServiceCatalogId = app.ServiceCatalogId
+            };
+        }
+        
     }
 }

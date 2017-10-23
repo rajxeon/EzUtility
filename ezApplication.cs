@@ -24,8 +24,10 @@ namespace EzUtility
         public string Title { get; set; }
         public string ShortName { get; set; }
         public string ServiceCatalogId { get; set; }
+        public Nullable<int> ServiceLineId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ezServer> ezServers { get; set; }
+        public virtual ezServiceLine ezServiceLine { get; set; }
     }
 }

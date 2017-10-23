@@ -18,6 +18,7 @@ namespace EzUtility
         public ezServiceLine()
         {
             this.ezServers = new HashSet<ezServer>();
+            this.ezApplications = new HashSet<ezApplication>();
         }
     
         public int id { get; set; }
@@ -26,5 +27,7 @@ namespace EzUtility
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ezServer> ezServers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ezApplication> ezApplications { get; set; }
     }
 }

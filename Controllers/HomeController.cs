@@ -49,6 +49,17 @@ namespace EzUtility.Controllers
         }
 
         [HttpPost]
+        public string getApplications(int serviceLineId)
+        {
+            var query= dbContext.ezApplications.Where(c=>c.ServiceLineId==serviceLineId)
+                .ToList()
+                .Select(a => _modelFactory.GetApplications(a));            
+            var json = JsonConvert.SerializeObject(query);
+            return json;
+
+        }
+
+        [HttpPost]
         public string getServers(int svcLineID, int envId)
         {
             var context = new EzUtilityEntities();
