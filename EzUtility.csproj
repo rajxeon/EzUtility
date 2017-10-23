@@ -80,6 +80,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -88,6 +92,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -198,7 +210,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Environment.cs">
+    <Compile Include="ezApplication.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ezCluster.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ezEnvironment.cs">
       <DependentUpon>Ezpatch.tt</DependentUpon>
     </Compile>
     <Compile Include="Ezpatch.Context.cs">
@@ -216,16 +234,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Ezpatch.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ezServer.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ezServiceLine.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ezType.cs">
+      <DependentUpon>Ezpatch.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\EnvironmentsModel.cs" />
+    <Compile Include="Models\ServiceLinesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLine.cs">
-      <DependentUpon>Ezpatch.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

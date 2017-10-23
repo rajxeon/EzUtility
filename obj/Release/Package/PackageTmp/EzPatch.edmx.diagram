@@ -4,9 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5164760fcd2742d18a05f1f7e088315b" Name="Diagram1">
-        <EntityTypeShape EntityType="EzUtilityModel.ServiceLine" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EzUtilityModel.Environment" Width="1.5" PointX="0.75" PointY="3" />
+      <Diagram DiagramId="5164760fcd2742d18a05f1f7e088315b" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="EzUtilityModel.ezApplication" Width="1.5" PointX="6.125" PointY="1" />
+        <EntityTypeShape EntityType="EzUtilityModel.ezCluster" Width="1.5" PointX="9.875" PointY="1" />
+        <EntityTypeShape EntityType="EzUtilityModel.ezEnvironment" Width="1.5" PointX="8.875" PointY="4.875" />
+        <EntityTypeShape EntityType="EzUtilityModel.ezServer" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="EzUtilityModel.ezServiceLine" Width="1.5" PointX="9.875" PointY="2.75" />
+        <EntityTypeShape EntityType="EzUtilityModel.ezType" Width="1.5" PointX="7.25" PointY="4.875" />
+        <AssociationConnector Association="EzUtilityModel.FK_ezServers_ezApplications" />
+        <AssociationConnector Association="EzUtilityModel.FK_ezServers_ezEnvironments1" />
+        <AssociationConnector Association="EzUtilityModel.FK_ezServers_ezServiceLines" />
+        <AssociationConnector Association="EzUtilityModel.FK_ezServers_ezTypes" />
+        <AssociationConnector Association="EzUtilityModel.FK_ezServers_ezClusters" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

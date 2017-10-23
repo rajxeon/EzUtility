@@ -12,10 +12,19 @@ namespace EzUtility
     using System;
     using System.Collections.Generic;
     
-    public partial class ServiceLine
+    public partial class ezServiceLine
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ezServiceLine()
+        {
+            this.ezServers = new HashSet<ezServer>();
+        }
+    
         public int id { get; set; }
         public string serviceLine_name { get; set; }
         public string description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ezServer> ezServers { get; set; }
     }
 }

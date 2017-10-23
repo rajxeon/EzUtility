@@ -1,13 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EzUtilityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="Environments">
+  <EntityType Name="ezApplications">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="ShortName" Type="varchar" MaxLength="50" />
+    <Property Name="ServiceCatalogId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ezClusters">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="clusterName" Type="nchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ezEnvironments">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="environment" Type="nchar" MaxLength="20" />
   </EntityType>
-  <EntityType Name="ServiceLines">
+  <EntityType Name="ezServers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="MachineName" Type="varchar" MaxLength="50" />
+    <Property Name="MachineDomain" Type="varchar" MaxLength="50" />
+    <Property Name="EnvironmentID" Type="int" Nullable="false" />
+    <Property Name="ApplicationID" Type="int" Nullable="false" />
+    <Property Name="ServiceLineID" Type="int" Nullable="false" />
+    <Property Name="TypeID" Type="int" Nullable="false" />
+    <Property Name="ClusterID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ezServiceLines">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -15,8 +44,99 @@
     <Property Name="serviceLine_name" Type="nchar" MaxLength="20" />
     <Property Name="description" Type="nchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="ezTypes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ezServers_ezApplications">
+    <End Role="ezApplications" Type="Self.ezApplications" Multiplicity="1" />
+    <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezApplications">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezServers">
+        <PropertyRef Name="ApplicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ezServers_ezClusters">
+    <End Role="ezClusters" Type="Self.ezClusters" Multiplicity="1" />
+    <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezClusters">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezServers">
+        <PropertyRef Name="ClusterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ezServers_ezEnvironments1">
+    <End Role="ezEnvironments" Type="Self.ezEnvironments" Multiplicity="1" />
+    <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezEnvironments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezServers">
+        <PropertyRef Name="EnvironmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ezServers_ezServiceLines">
+    <End Role="ezServiceLines" Type="Self.ezServiceLines" Multiplicity="1" />
+    <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezServiceLines">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezServers">
+        <PropertyRef Name="ServiceLineID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ezServers_ezTypes">
+    <End Role="ezTypes" Type="Self.ezTypes" Multiplicity="1" />
+    <End Role="ezServers" Type="Self.ezServers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ezTypes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ezServers">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="EzUtilityModelStoreContainer">
-    <EntitySet Name="Environments" EntityType="Self.Environments" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ServiceLines" EntityType="Self.ServiceLines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezApplications" EntityType="Self.ezApplications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezClusters" EntityType="Self.ezClusters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezEnvironments" EntityType="Self.ezEnvironments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezServers" EntityType="Self.ezServers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezServiceLines" EntityType="Self.ezServiceLines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ezTypes" EntityType="Self.ezTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ezServers_ezApplications" Association="Self.FK_ezServers_ezApplications">
+      <End Role="ezApplications" EntitySet="ezApplications" />
+      <End Role="ezServers" EntitySet="ezServers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ezServers_ezClusters" Association="Self.FK_ezServers_ezClusters">
+      <End Role="ezClusters" EntitySet="ezClusters" />
+      <End Role="ezServers" EntitySet="ezServers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ezServers_ezEnvironments1" Association="Self.FK_ezServers_ezEnvironments1">
+      <End Role="ezEnvironments" EntitySet="ezEnvironments" />
+      <End Role="ezServers" EntitySet="ezServers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ezServers_ezServiceLines" Association="Self.FK_ezServers_ezServiceLines">
+      <End Role="ezServiceLines" EntitySet="ezServiceLines" />
+      <End Role="ezServers" EntitySet="ezServers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ezServers_ezTypes" Association="Self.FK_ezServers_ezTypes">
+      <End Role="ezTypes" EntitySet="ezTypes" />
+      <End Role="ezServers" EntitySet="ezServers" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

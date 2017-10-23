@@ -25,7 +25,11 @@ namespace EzUtility
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ServiceLine> ServiceLines { get; set; }
-        public virtual DbSet<Environment> Environments { get; set; }
+        public virtual DbSet<ezApplication> ezApplications { get; set; }
+        public virtual DbSet<ezCluster> ezClusters { get; set; }
+        public virtual DbSet<ezEnvironment> ezEnvironments { get; set; }
+        public virtual DbSet<ezServer> ezServers { get; set; }
+        public virtual DbSet<ezServiceLine> ezServiceLines { get; set; }
+        public virtual DbSet<ezType> ezTypes { get; set; }
     }
 }

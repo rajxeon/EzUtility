@@ -12,9 +12,18 @@ namespace EzUtility
     using System;
     using System.Collections.Generic;
     
-    public partial class Environment
+    public partial class ezEnvironment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ezEnvironment()
+        {
+            this.ezServers = new HashSet<ezServer>();
+        }
+    
         public int id { get; set; }
-        public string environment1 { get; set; }
+        public string environment { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ezServer> ezServers { get; set; }
     }
 }

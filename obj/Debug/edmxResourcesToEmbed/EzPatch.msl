@@ -1,19 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="EzUtilityModelStoreContainer" CdmEntityContainer="EzUtilityEntities">
-    <EntitySetMapping Name="ServiceLines">
-      <EntityTypeMapping TypeName="EzUtilityModel.ServiceLine">
-        <MappingFragment StoreEntitySet="ServiceLines">
+    <EntitySetMapping Name="ezApplications">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezApplication">
+        <MappingFragment StoreEntitySet="ezApplications">
+          <ScalarProperty Name="ServiceCatalogId" ColumnName="ServiceCatalogId" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="serviceLine_name" ColumnName="serviceLine_name" />
-          <ScalarProperty Name="description" ColumnName="description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Environments">
-      <EntityTypeMapping TypeName="EzUtilityModel.Environment">
-        <MappingFragment StoreEntitySet="Environments">
-          <ScalarProperty Name="environment1" ColumnName="environment" />
+    <EntitySetMapping Name="ezClusters">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezCluster">
+        <MappingFragment StoreEntitySet="ezClusters">
+          <ScalarProperty Name="clusterName" ColumnName="clusterName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ezEnvironments">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezEnvironment">
+        <MappingFragment StoreEntitySet="ezEnvironments">
+          <ScalarProperty Name="environment" ColumnName="environment" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ezServers">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezServer">
+        <MappingFragment StoreEntitySet="ezServers">
+          <ScalarProperty Name="ClusterID" ColumnName="ClusterID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="ServiceLineID" ColumnName="ServiceLineID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="EnvironmentID" ColumnName="EnvironmentID" />
+          <ScalarProperty Name="MachineDomain" ColumnName="MachineDomain" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ezServiceLines">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezServiceLine">
+        <MappingFragment StoreEntitySet="ezServiceLines">
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="serviceLine_name" ColumnName="serviceLine_name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ezTypes">
+      <EntityTypeMapping TypeName="EzUtilityModel.ezType">
+        <MappingFragment StoreEntitySet="ezTypes">
+          <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

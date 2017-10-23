@@ -39,6 +39,7 @@
     function loadServiceLine() {
         url = baseUrl + "home/getServiceLine";
         $.post(url, function (data) {
+            console.log(data);
             data = $.parseJSON(data);
             html = '<option selected disabled>Select Serviceline</option>';
             $(data).each(function (i, v) {
@@ -51,7 +52,23 @@
     function loadEnvironments() {
         url = baseUrl + "home/getEnvironments";
         $.post(url, function (data) {
-            data = $.parseJSON(data); 
+            console.log(data);
+            data = $.parseJSON(data);
+            
+            html = '';
+            html = '<option selected disabled>Select Environment</option>';
+            $(data).each(function (i, v) {
+                html += '<option value="' + v.id + '">' + v.environment + '</option>';
+            })
+            $('#selectEnvironment').html(html);
+        })
+    }
+
+    function getServerList(svcLineId,envId) {
+        url = baseUrl + "home/getServers";
+        $.post(url, { svcLineID: svcLineId, envId: envId }, function (data) {
+            data = $.parseJSON(data);
+             
             html = '';
             html = '<option selected disabled>Select Environment</option>';
             $(data).each(function (i, v) {
