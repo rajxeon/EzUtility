@@ -18,6 +18,10 @@
         margin-top: 15px;
     background: #fff;
     }
+    #kbmanagerModalBody {
+    max-height: 250px;
+    overflow-y: auto;
+}
 </style>
 <br /><br /><br /><br />
 <h3>@ViewData["Message"]</h3>
@@ -55,6 +59,59 @@
         })
     })
 
+    function showKbManager(server) {
+        if (!server) {
+            server = $('#serverNameKBManager').val();
+        }
+        else {
+            $('#serverNameKBManager').val(server);
+        }
+        
+
+        $('#myModal').modal('show');
+        $('#kbmanagerModalBody').html('<img style="display: block;margin: 30px auto;height: 40px;margin-bottom: 10px;" src="http://charterhouseyc.com/wp-content/plugins/yacht-cya/images/loader.gif"><p style=" text-align: center; ">It can take upto a minute..</p>');
+        url = baseUrl + "home/RunPS";
+        month = $('#monthsToShow').val();
+        
+        $.post(url, { filename: 'getkbs', first_param: 'serverFQDN>' + server,second_param:'month>'+month }, function (data) {
+            if (data) {
+                data=$.parseJSON(data);
+                
+                html = '<table class="table table-striped"><thead style="    background: #8bb64f;color:#fff"><tr>  <th></th><th>#</th>  <th>Hotfix id</th>\
+                    <th>InstalledOn</th>  <th>Description</th>  </tr></thead><tbody>';
+
+                $(data).each(function (i, v) {
+                    html += '<tr data-hotfixId="' + v.hotfixid + '" class="BaliKaBakra">';
+                    html += '<td><input type="checkbox"></td>';
+                    html += '<td>' + (i + 1) + '</td>';
+                    html += '<td>' + v.hotfixid + '</td>';
+                    html += '<td>' + v.InstalledOn.DateTime + '</td>';
+                    html += '<td>' + v.description + '</td>';
+                    html += '</tr>';
+                })
+                html += '</tbody></table>';
+                $('#kbmanagerModalBody').html('<hr>' + html);
+            } else {
+                $('#kbmanagerModalBody').html('<hr><p>No Kbs found. Please change month.</p>');
+            }
+           
+        })
+    }
+
+    function searchKbs(e) {
+        if ($(e).val().length > 0) {
+            $('.BaliKaBakra').hide();
+        }
+        else { $('.BaliKaBakra').show(); }
+        
+        $('.BaliKaBakra').each(function (i, v) {
+            if ($(this).attr('data-hotfixId').indexOf($(e).val()) > 0) {
+                console.log($(this).attr('data-hotfixId'));
+                $(this).show();
+            }
+        })
+    }
+
     function getServers() {
          
         $('#serverTableHolder').html('<img style="display: block; margin: 60px auto; height: 40px;" src="http://charterhouseyc.com/wp-content/plugins/yacht-cya/images/loader.gif" />');
@@ -81,7 +138,7 @@
                 html += '<td>' + v.ServiceLine + '</td>';
                 html += '<td>' + v.Type + '</td>';
                 html += '<td> <a class="btn btn-success btn-xs"\
-                data-toggle="modal" data-target="#myModal"\
+                data-toggle="modal" onclick="showKbManager(\'' + v.MachineName + '\')"\
                 title="Show installed KBs"><i class="glyphicon glyphicon-cog"></i></a></td>';
 
                 html += '</tr>';
@@ -160,6 +217,7 @@
 </script>
 <input type="hidden" id="xml_filename" value="" />
 <div id="serverList" style="display:none">
+    <input type="hidden" id="serverNameKBManager" />
     
 </div>
 
@@ -215,21 +273,45 @@
     <br /><br /><br /><br /><br /><br /><br /><br />
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">KB manager</h4>
+   
+    </div>
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">KB manager</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label style="display: block;">
+                            Select Month
+                            <select class="form-control" id="monthsToShow" onchange="showKbManager('')">
+                                <option value="0">All</option>
+                                <option value="1" selected>1 month</option>
+                                <option value="2">2 month</option>
+                                <option value="3">3 month</option>
+                                <option value="4">4 month</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                        <label style="display: block;">
+                            Search Kbs
+                            <input type="text" onKeyUp="searchKbs($(this))" class="form-control" id="kbSearch" />
+                        </label>
+                    </div>
+
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <div id="kbmanagerModalBody"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i> Uninstall KBs</button>
             </div>
         </div>
     </div>

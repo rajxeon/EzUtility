@@ -86,3 +86,4 @@ C:\Users\v-rassc\documents\visual studio 2015\Projects\EzUtility\EzUtility\bin\M
 C:\Users\v-rassc\documents\visual studio 2015\Projects\EzUtility\EzUtility\obj\Debug\EzUtility.dll
 C:\Users\v-rassc\documents\visual studio 2015\Projects\EzUtility\EzUtility\obj\Debug\EzUtility.pdb
 C:\Users\v-rassc\documents\visual studio 2015\Projects\EzUtility\EzUtility\obj\Debug\EzUtility.csprojResolveAssemblyReference.cache
+C:\Users\v-rassc\documents\visual studio 2015\Projects\EzUtility\EzUtility\bin\System.Management.Automation.dll
