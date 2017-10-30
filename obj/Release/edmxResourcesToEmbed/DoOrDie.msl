@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TryandDieModelStoreContainer" CdmEntityContainer="TryandDieEntities">
+    <EntitySetMapping Name="Application_Base">
+      <EntityTypeMapping TypeName="TryandDieModel.Application_Base">
+        <MappingFragment StoreEntitySet="Application_Base">
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="Appl_name" ColumnName="Appl_name" />
+          <ScalarProperty Name="Threaded" ColumnName="Threaded" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="SOID" ColumnName="SOID" />
+          <ScalarProperty Name="SLID" ColumnName="SLID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DependencyMatrices">
+      <EntityTypeMapping TypeName="TryandDieModel.DependencyMatrix">
+        <MappingFragment StoreEntitySet="DependencyMatrix">
+          <ScalarProperty Name="DependentApp" ColumnName="DependentApp" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="DependentAppID" ColumnName="DependentAppID" />
+          <ScalarProperty Name="Stream" ColumnName="Stream" />
+          <ScalarProperty Name="ImpactStatment" ColumnName="ImpactStatment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Service_Line_Base">
+      <EntityTypeMapping TypeName="TryandDieModel.Service_Line_Base">
+        <MappingFragment StoreEntitySet="Service_Line_Base">
+          <ScalarProperty Name="SOID" ColumnName="SOID" />
+          <ScalarProperty Name="SLID" ColumnName="SLID" />
+          <ScalarProperty Name="Service_Line" ColumnName="Service_Line" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Service_Offering_Base">
+      <EntityTypeMapping TypeName="TryandDieModel.Service_Offering_Base">
+        <MappingFragment StoreEntitySet="Service_Offering_Base">
+          <ScalarProperty Name="SOID" ColumnName="SOID" />
+          <ScalarProperty Name="Service_Offering" ColumnName="Service_Offering" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

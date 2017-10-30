@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TryandDieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Application_Base">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Appl_name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Threaded" Type="bit" Nullable="false" />
+          <Property Name="Division" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SOID" Type="int" Nullable="false" />
+          <Property Name="SLID" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DependencyMatrix">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppID" Type="int" Nullable="false" />
+          <Property Name="DependentAppID" Type="int" Nullable="false" />
+          <Property Name="Stream" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImpactStatment" Type="nvarchar(max)" />
+          <Property Name="DependentApp" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Service_Line_Base">
+          <Key>
+            <PropertyRef Name="SLID" />
+          </Key>
+          <Property Name="SLID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service_Line" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortName" Type="nchar" MaxLength="10" />
+          <Property Name="SOID" Type="int" />
+        </EntityType>
+        <EntityType Name="Service_Offering_Base">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service_Offering" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Application_Base_Service_Line_Base">
+          <End Role="Service_Line_Base" Type="Self.Service_Line_Base" Multiplicity="1" />
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service_Line_Base">
+              <PropertyRef Name="SLID" />
+            </Principal>
+            <Dependent Role="Application_Base">
+              <PropertyRef Name="SLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DependencyMatrix_Application_Base">
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="1" />
+          <End Role="DependencyMatrix" Type="Self.DependencyMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application_Base">
+              <PropertyRef Name="AppId" />
+            </Principal>
+            <Dependent Role="DependencyMatrix">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DependencyMatrix_Application_Base1">
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="1" />
+          <End Role="DependencyMatrix" Type="Self.DependencyMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application_Base">
+              <PropertyRef Name="AppId" />
+            </Principal>
+            <Dependent Role="DependencyMatrix">
+              <PropertyRef Name="DependentAppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TryandDieModelStoreContainer">
+          <EntitySet Name="Application_Base" EntityType="Self.Application_Base" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DependencyMatrix" EntityType="Self.DependencyMatrix" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service_Line_Base" EntityType="Self.Service_Line_Base" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service_Offering_Base" EntityType="Self.Service_Offering_Base" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Application_Base_Service_Line_Base" Association="Self.FK_Application_Base_Service_Line_Base">
+            <End Role="Service_Line_Base" EntitySet="Service_Line_Base" />
+            <End Role="Application_Base" EntitySet="Application_Base" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DependencyMatrix_Application_Base" Association="Self.FK_DependencyMatrix_Application_Base">
+            <End Role="Application_Base" EntitySet="Application_Base" />
+            <End Role="DependencyMatrix" EntitySet="DependencyMatrix" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DependencyMatrix_Application_Base1" Association="Self.FK_DependencyMatrix_Application_Base1">
+            <End Role="Application_Base" EntitySet="Application_Base" />
+            <End Role="DependencyMatrix" EntitySet="DependencyMatrix" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TryandDieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application_Base">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Appl_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Threaded" Type="Boolean" Nullable="false" />
+          <Property Name="Division" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SOID" Type="Int32" Nullable="false" />
+          <Property Name="SLID" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Service_Line_Base" Relationship="Self.FK_Application_Base_Service_Line_Base" FromRole="Application_Base" ToRole="Service_Line_Base" />
+          <NavigationProperty Name="Service_Offering_Base" Relationship="Self.FK_Application_Base_Service_Offering_Base" FromRole="Application_Base" ToRole="Service_Offering_Base" />
+          <NavigationProperty Name="DependencyMatrices" Relationship="Self.FK_DependencyMatrix_Application_Base" FromRole="Application_Base" ToRole="DependencyMatrix" />
+          <NavigationProperty Name="DependencyMatrices1" Relationship="Self.FK_DependencyMatrix_Application_Base1" FromRole="Application_Base" ToRole="DependencyMatrix" />
+        </EntityType>
+        <EntityType Name="DependencyMatrix">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <Property Name="DependentAppID" Type="Int32" Nullable="false" />
+          <Property Name="Stream" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImpactStatment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Application_Base" Relationship="Self.FK_DependencyMatrix_Application_Base" FromRole="DependencyMatrix" ToRole="Application_Base" />
+          <NavigationProperty Name="Application_Base1" Relationship="Self.FK_DependencyMatrix_Application_Base1" FromRole="DependencyMatrix" ToRole="Application_Base" />
+          <Property Name="DependentApp" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Service_Line_Base">
+          <Key>
+            <PropertyRef Name="SLID" />
+          </Key>
+          <Property Name="SLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service_Line" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Application_Base" Relationship="Self.FK_Application_Base_Service_Line_Base" FromRole="Service_Line_Base" ToRole="Application_Base" />
+          <Property Name="SOID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Service_Offering_Base">
+          <Key>
+            <PropertyRef Name="SOID" />
+          </Key>
+          <Property Name="SOID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service_Offering" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Application_Base" Relationship="Self.FK_Application_Base_Service_Offering_Base" FromRole="Service_Offering_Base" ToRole="Application_Base" />
+        </EntityType>
+        <Association Name="FK_Application_Base_Service_Line_Base">
+          <End Role="Service_Line_Base" Type="Self.Service_Line_Base" Multiplicity="1" />
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service_Line_Base">
+              <PropertyRef Name="SLID" />
+            </Principal>
+            <Dependent Role="Application_Base">
+              <PropertyRef Name="SLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_Base_Service_Offering_Base">
+          <End Role="Service_Offering_Base" Type="Self.Service_Offering_Base" Multiplicity="1" />
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service_Offering_Base">
+              <PropertyRef Name="SOID" />
+            </Principal>
+            <Dependent Role="Application_Base">
+              <PropertyRef Name="SOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DependencyMatrix_Application_Base">
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="1" />
+          <End Role="DependencyMatrix" Type="Self.DependencyMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application_Base">
+              <PropertyRef Name="AppId" />
+            </Principal>
+            <Dependent Role="DependencyMatrix">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DependencyMatrix_Application_Base1">
+          <End Role="Application_Base" Type="Self.Application_Base" Multiplicity="1" />
+          <End Role="DependencyMatrix" Type="Self.DependencyMatrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application_Base">
+              <PropertyRef Name="AppId" />
+            </Principal>
+            <Dependent Role="DependencyMatrix">
+              <PropertyRef Name="DependentAppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TryandDieEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Application_Base" EntityType="Self.Application_Base" />
+          <EntitySet Name="DependencyMatrices" EntityType="Self.DependencyMatrix" />
+          <EntitySet Name="Service_Line_Base" EntityType="Self.Service_Line_Base" />
+          <EntitySet Name="Service_Offering_Base" EntityType="Self.Service_Offering_Base" />
+          <AssociationSet Name="FK_Application_Base_Service_Line_Base" Association="Self.FK_Application_Base_Service_Line_Base">
+            <End Role="Service_Line_Base" EntitySet="Service_Line_Base" />
+            <End Role="Application_Base" EntitySet="Application_Base" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_Base_Service_Offering_Base" Association="Self.FK_Application_Base_Service_Offering_Base">
+            <End Role="Service_Offering_Base" EntitySet="Service_Offering_Base" />
+            <End Role="Application_Base" EntitySet="Application_Base" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DependencyMatrix_Application_Base" Association="Self.FK_DependencyMatrix_Application_Base">
+            <End Role="Application_Base" EntitySet="Application_Base" />
+            <End Role="DependencyMatrix" EntitySet="DependencyMatrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DependencyMatrix_Application_Base1" Association="Self.FK_DependencyMatrix_Application_Base1">
+            <End Role="Application_Base" EntitySet="Application_Base" />
+            <End Role="DependencyMatrix" EntitySet="DependencyMatrices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TryandDieModelStoreContainer" CdmEntityContainer="TryandDieEntities">
+          <EntitySetMapping Name="Application_Base">
+            <EntityTypeMapping TypeName="TryandDieModel.Application_Base">
+              <MappingFragment StoreEntitySet="Application_Base">
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="Appl_name" ColumnName="Appl_name" />
+                <ScalarProperty Name="Threaded" ColumnName="Threaded" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="SLID" ColumnName="SLID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DependencyMatrices">
+            <EntityTypeMapping TypeName="TryandDieModel.DependencyMatrix">
+              <MappingFragment StoreEntitySet="DependencyMatrix">
+                <ScalarProperty Name="DependentApp" ColumnName="DependentApp" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="DependentAppID" ColumnName="DependentAppID" />
+                <ScalarProperty Name="Stream" ColumnName="Stream" />
+                <ScalarProperty Name="ImpactStatment" ColumnName="ImpactStatment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service_Line_Base">
+            <EntityTypeMapping TypeName="TryandDieModel.Service_Line_Base">
+              <MappingFragment StoreEntitySet="Service_Line_Base">
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="SLID" ColumnName="SLID" />
+                <ScalarProperty Name="Service_Line" ColumnName="Service_Line" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service_Offering_Base">
+            <EntityTypeMapping TypeName="TryandDieModel.Service_Offering_Base">
+              <MappingFragment StoreEntitySet="Service_Offering_Base">
+                <ScalarProperty Name="SOID" ColumnName="SOID" />
+                <ScalarProperty Name="Service_Offering" ColumnName="Service_Offering" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

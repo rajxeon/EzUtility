@@ -22,6 +22,9 @@ namespace EzUtility.Controllers
     public class HomeController : Controller
     {
         public EzUtilityEntities dbContext=new EzUtilityEntities();
+        public TryandDieEntities dbContextTryandDie = new TryandDieEntities();
+
+         
         public ModelFactory _modelFactory = new ModelFactory();
 
         public ActionResult Index()
@@ -33,6 +36,45 @@ namespace EzUtility.Controllers
         {   ViewData["Message"] = "Welcome to EzPatch";
             return View();
         }
+
+        public ActionResult Impact() {
+            return View();
+        }
+
+        [HttpPost]
+        public string getServiceOfferings() {
+            var query = dbContextTryandDie.Service_Offering_Base.ToList().Select(c=>_modelFactory.GetServiceOfferings(c));
+            var json = JsonConvert.SerializeObject(query);
+            return json;            
+        }
+
+        [HttpPost]
+        public string getServiceLines(int soid)
+        {
+            var query = dbContextTryandDie.Service_Line_Base.Where(c => c.SOID == soid).ToList().Select(c => _modelFactory.GetServiceLineImpact(c));
+            var json = JsonConvert.SerializeObject(query);
+            return json;
+        }
+
+        [HttpPost]
+        public string getApplicationImpact(int slid)
+        {
+            var query = dbContextTryandDie.Application_Base.Where(c => c.SLID == slid).ToList().Select(c => _modelFactory.GetApplicationsImpact(c));
+            var json = JsonConvert.SerializeObject(query);
+            return json;
+        }
+
+        public string dependentApp(int AppID)
+        {
+            var query = dbContextTryandDie.DependencyMatrices.Where(c => c.AppID == AppID).ToList().Select(c => _modelFactory.GetDependentApplicationsImpact(c));
+            var json = JsonConvert.SerializeObject(query);
+            return json;
+        }
+
+        
+
+        //-----------------------------------------------------------------
+
 
         [HttpPost]
         public string RunPS(string filename, string first_param = "", string second_param = "", string third_param = "") {

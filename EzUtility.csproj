@@ -208,12 +208,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application_Base.cs">
+      <DependentUpon>DoOrDie.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DependencyMatrix.cs">
+      <DependentUpon>DoOrDie.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoOrDie.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoOrDie.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoOrDie.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoOrDie.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoOrDie.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoOrDie.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ezApplication.cs">
       <DependentUpon>Ezpatch.tt</DependentUpon>
     </Compile>
@@ -251,6 +272,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DependentApplicationsModelImpact.cs" />
+    <Compile Include="Models\ApplicationsModelImpact.cs" />
+    <Compile Include="Models\ServiceLinesModelImpact.cs" />
+    <Compile Include="Models\ServiceOfferingsModel.cs" />
     <Compile Include="Models\ServersModel.cs" />
     <Compile Include="Models\ApplicationsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -259,11 +284,27 @@
     <Compile Include="Models\EnvironmentsModel.cs" />
     <Compile Include="Models\ServiceLinesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service_Line_Base.cs">
+      <DependentUpon>DoOrDie.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service_Offering_Base.cs">
+      <DependentUpon>DoOrDie.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DoOrDie.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoOrDie.edmx</DependentUpon>
+      <LastGenOutput>DoOrDie.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DoOrDie.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoOrDie.edmx</DependentUpon>
+      <LastGenOutput>DoOrDie.cs</LastGenOutput>
+    </Content>
     <Content Include="Ezpatch.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Ezpatch.edmx</DependentUpon>
@@ -291,6 +332,13 @@
     </EntityDeploy>
     <Content Include="Ezpatch.edmx.diagram">
       <DependentUpon>Ezpatch.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="DoOrDie.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DoOrDie.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DoOrDie.edmx.diagram">
+      <DependentUpon>DoOrDie.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Local Machine.pubxml" />
     <Content Include="PSScripts\getkbs.ps1" />
@@ -322,6 +370,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\Ez.cshtml" />
+    <Content Include="Views\Home\Impact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

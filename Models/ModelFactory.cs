@@ -26,6 +26,56 @@ namespace EzUtility.Models
             };
         }
 
+        public ServiceOfferingsModel GetServiceOfferings(Service_Offering_Base sob)
+        {
+            return new ServiceOfferingsModel()
+            {
+                id = sob.SOID,
+                Service_Offering = sob.Service_Offering
+            };
+        }
+
+        public ServiceLinesModelImpact GetServiceLineImpact(Service_Line_Base slb)
+        {
+            return new ServiceLinesModelImpact()
+            {
+                SLID=slb.SLID,
+                Service_Line=slb.Service_Line,
+                ShortName=slb.ShortName,
+                SOID=(int)slb.SOID               
+            };
+        }
+        public ApplicationsModelImpact GetApplicationsImpact(Application_Base app)
+        {
+            return new ApplicationsModelImpact()
+            {
+               AppId=app.AppId,
+                Appl_name = app.Appl_name,
+                Threaded =app.Threaded,
+                Division = app.Division,
+                SOID = app.SOID,
+                SLID = app.SLID
+            };
+        }
+
+        public DependentApplicationsModelImpact GetDependentApplicationsImpact(DependencyMatrix dm)
+        {
+            return new DependentApplicationsModelImpact()
+            {
+                SID = dm.SID,
+                AppID = dm.AppID,
+                DependentAppID = dm.DependentAppID,
+                Stream = dm.Stream,
+                ImpactStatment = dm.ImpactStatment,
+                depApps = dm.DependentApp
+            };
+        }
+
+         
+
+
+
+
         public ApplicationsModel GetApplications(ezApplication app)
         {
             return new ApplicationsModel()

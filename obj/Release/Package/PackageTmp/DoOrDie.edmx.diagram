@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1970df6983447419f8606326beafb3d" Name="Diagram1">
+        <EntityTypeShape EntityType="TryandDieModel.Application_Base" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TryandDieModel.DependencyMatrix" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TryandDieModel.Service_Line_Base" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TryandDieModel.Service_Offering_Base" Width="1.5" PointX="1.125" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="TryandDieModel.FK_Application_Base_Service_Line_Base" ManuallyRouted="false" />
+        <AssociationConnector Association="TryandDieModel.FK_Application_Base_Service_Offering_Base" ManuallyRouted="false" />
+        <AssociationConnector Association="TryandDieModel.FK_DependencyMatrix_Application_Base" ManuallyRouted="false" />
+        <AssociationConnector Association="TryandDieModel.FK_DependencyMatrix_Application_Base1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

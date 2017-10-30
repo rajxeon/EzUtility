@@ -75,9 +75,10 @@
         
         $.post(url, { filename: 'getkbs', first_param: 'serverFQDN>' + server,second_param:'month>'+month }, function (data) {
             if (data) {
+                console.log(data);
                 data=$.parseJSON(data);
                 
-                html = '<table class="table table-striped"><thead style="    background: #8bb64f;color:#fff"><tr>  <th></th><th>#</th>  <th>Hotfix id</th>\
+                html = '<table class="table table-striped"><thead style="    background: #5cb85c;color:#fff"><tr>  <th></th><th>#</th>  <th>Hotfix id</th>\
                     <th>InstalledOn</th>  <th>Description</th>  </tr></thead><tbody>';
 
                 $(data).each(function (i, v) {

@@ -1,0 +1,167 @@
+﻿ 
+<style>
+    body {
+        background: #F0F0F0 !important;
+        color: #313131 !important;
+    }
+
+    .svcOffering {
+        background:#33C3FF;
+        cursor:pointer;
+        padding:10px;
+        margin:3px;
+        color:#fff;
+        font-weight:bold;
+    }
+        .svcOffering:hover {
+        background:#5CA8E4;
+        }
+    
+   .svcLine {
+        background:#8CC739;
+        cursor:pointer;
+        padding:10px;
+        margin:3px;
+        color:#fff;
+        font-weight:bold;
+    }
+    .svcLine:hover {
+         background:#AAC730;
+    }
+    .app {
+        background:#FF7F2A;
+        cursor:pointer;
+        padding:10px;
+        margin:3px;
+        color:#fff;
+        font-weight:bold;
+    }
+    .app:hover {
+         background:#FF552A;
+    }
+    .dependentApp {
+        background:#005B9A;
+        cursor:pointer;
+        padding:10px;
+        margin:3px;
+        color:#fff;
+        font-weight:bold;
+    }
+    .dependentApp:hover {
+         background:#445B9A;
+    }
+    
+    
+}
+</style>
+<br /><br /><br /><br />
+<h3>@ViewData["Message"]</h3>
+
+<link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
+<script>
+    var baseUrl = window.location.origin+"/";
+
+    $(document).ready(function () {
+        loadServiceLine();
+         
+    })
+
+
+    function loadServiceLine() {
+        url = baseUrl + "home/getServiceOfferings";
+        $.post(url, function (data) {
+           
+            data = $.parseJSON(data);
+            html = '<h3>Service Offerings</h3>';
+            $(data).each(function (i, v) {
+                html += '<div class="svcOffering" onclick="showServiceLine(\''+v.id+'\')">' + v.Service_Offering + '</div>';
+            })
+            $('#ServiceOfferings').html(html);
+        })
+    }
+
+    function showServiceLine(soid) {
+        url = baseUrl + "home/getServiceLines";
+        $.post(url,{soid:soid}, function (data) {
+
+            data = $.parseJSON(data);
+             
+            html = '<h3>Service Lines</h3>';
+            
+            $(data).each(function (i, v) {
+                html += '<div class="svcLine" onclick="showApplication(\'' + v.SLID + '\')" >' + v.Service_Line.slice(0, 30) + '<small style="float:right">' + v.ShortName + '</small></div>';
+            })
+            $('#ServiceLineBase').html(html);
+        })
+    }
+
+    function showApplication(slid) {
+        url = baseUrl + "home/getApplicationImpact";
+        $.post(url, { slid: slid }, function (data) {
+
+            data = $.parseJSON(data);
+            console.log(data);
+            html = '<h3>Applications </h3>';
+            $(data).each(function (i, v) {
+                html += '<div class="app" onclick="showDependentApps(\'' + v.AppId + '\')" >' + v.Appl_name.slice(0, 35);
+                if (v.Threaded) {
+                    html += '<span style="float:right" ><i class="glyphicon glyphicon-random"></i></span><br><small>' + v.Division + '</small>';
+                }
+                html += '</div>';
+            })
+            $('#appsBase').html(html);
+        })
+    }
+    
+
+    function showDependentApps(AppID) {
+        url = baseUrl + "home/dependentApp";
+        $.post(url, { AppID: AppID }, function (data) {
+
+            data = $.parseJSON(data);
+            console.log(data);
+            html = '<h3>Dependencies </h3>';
+            $(data).each(function (i, v) {
+                html += '<div class="dependentApp" onclick="showImpact(\'' + v.ImpactStatment + '\')">' + v.depApps + '<br><small>Stream:' + v.Stream + '</small></div>';
+            })
+            $('#dependencies').html(html);
+        })
+    }
+     
+    
+    function showImpact(statement) {
+        $('#impactStatement').html(statement);
+        $('#myModal').modal('show');
+    }
+    
+
+</script>
+ <!-- <h1><i class="glyphicon glyphicon-fire"></i> Impact Manager</h1> -->
+
+<div class="row">
+     <div class="col-lg-3" id="ServiceOfferings" style="padding:0 !important;"></div>
+    <div class="col-lg-3" id="ServiceLineBase" style="padding:0 !important;"></div>
+    <div class="col-lg-3" id="appsBase" style="padding:0 !important;"></div>
+    <div class="col-lg-3" id="dependencies" style="padding:0 !important;"></div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Impace</h4>
+            </div>
+            <div class="modal-body" id="impactStatement">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 
+            </div>
+        </div>
+    </div>
+</div>
